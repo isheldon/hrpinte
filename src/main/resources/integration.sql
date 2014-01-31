@@ -1,0 +1,1 @@
+insert into EabaxOutLog (id, process_time, department_id) values (0, getdate(), 0);

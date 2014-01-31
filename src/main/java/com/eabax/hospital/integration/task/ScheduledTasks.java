@@ -1,8 +1,9 @@
 package com.eabax.hospital.integration.task;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @EnableScheduling
 public class ScheduledTasks {
+  static final Logger LOG = LoggerFactory.getLogger(ScheduledTasks.class);
 
   @Autowired
   private TaskRepository taskRepository;
@@ -18,9 +20,14 @@ public class ScheduledTasks {
   private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
       "HH:mm:ss");
 
-  @Scheduled(fixedRate = 10000)
+  @Scheduled(fixedRate = 60000)
   public void reportCurrentTime() {
-    taskRepository.foo();
-    System.out.println("The time is now " + dateFormat.format(new Date()));
+    LOG.debug("Start sync from Eabax to integration DB...");
+    LOG.debug("..........................................");
+    EabaxData data = new EabaxData();
+    taskRepository.constructEabaxData(data);
+    taskRepository.writeToInteDb(data);
+    LOG.debug("..........................................");
+    LOG.debug("End sync from Eabax to integration DB...");
   }
 }

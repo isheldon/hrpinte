@@ -21,13 +21,13 @@ class DefaultDataSourceConfig implements DataSourceConfig {
     @Value("${dataSource.password}")
     private String password;
 
-    @Value("${dataSource.driverClassName2}")
+    @Value("${dataSource2.driverClassName}")
     private String driver2;
-    @Value("${dataSource.url2}")
+    @Value("${dataSource2.url}")
     private String url2;
-    @Value("${dataSource.username2}")
+    @Value("${dataSource2.username}")
     private String username2;
-    @Value("${dataSource.password2}")
+    @Value("${dataSource2.password}")
     private String password2;
 
     @Bean
