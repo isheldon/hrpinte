@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.eabax.hospital.integration.task.model.*;
 
 @Repository
@@ -36,6 +37,8 @@ public class OutTaskRepository {
     LOG.debug("Has " + data.disposibleItems.size() + " disposibleItem(s) to be sync.");
     data.suppliers = this.getEabaxSuppliers(log);
     LOG.debug("Has " + data.suppliers.size() + " supplier(s) to be sync.");
+    data.applyActivities = this.getEabaxApplyActivities(log);
+    LOG.debug("Has " + data.applyActivities.size() + " applyActivities to be sync.");
   }
   
   /**
@@ -72,14 +75,19 @@ public class OutTaskRepository {
     }
     
     //sync ApplyActivities
-    Long lastActivityId = data.lastLog.activityId;
+    Long lastActivityId = data.lastLog.applyActivityId;
+    if (data.applyActivities.size() > 0) {
+      lastActivityId = this.writeInteApplyActivities(data.applyActivities);
+      hasNew = true;
+      LOG.debug("Apply activities cynced");
+    }
     
     if (hasNew) {
       OutLog newLog = new OutLog();
       newLog.departmentId = lastDeptId;
       newLog.disposibleItemId = lastItemId;
       newLog.supplierId = lastSupplierId;
-      newLog.activityId = lastActivityId;
+      newLog.applyActivityId = lastActivityId;
       this.writeOutLog(newLog);
       LOG.debug("New log created: " + newLog);
     }
@@ -138,23 +146,19 @@ public class OutTaskRepository {
     return suppliers.get(suppliers.size() - 1).id;
   }
   
-  private List getEabaxApplications(OutLog log) {
-    String sql = "select a.strreceiptno, a.lngreceiptno, a.strdate, "
-        + "d.strdepartmentcode, a.lngoperatorid, o.stroperatorcode, o.stroperatorname, "
-        + "a.strapprovedate, ao.stroperatorcode, ao.stroperatorname, "
-        + "ro.stroperatorcode, ro.stroperatorname, "
-        + "i.stritemcode, it.stritemtypecode, ad.lngunitid, ad.dblapplyquantity "
-        + "from drawapply a, department d, operator o, operator ao, operator ro, "
-        + "drawapplydetail ad, item i, itemtype it "
-        + "where a.lngdepartmentid = d.lngdepartmentid "
-        + "and a.lngoperatorid = o.lngoperatorid "
-        + "and a.lngapproveid = ao.lngoperatorid "
-        + "and a.lngemployeeid = ro.lngoperatorid (+) "
-        + "and ad.lngdrawapplyid = a.lngdrawapplyid "
-        + "and ad.lngitemid = i.lngitemid"
-        + "and i.lngitemtypeid = it.lngitemtypeid";
-    return null;
+  private List<ApplyActivity> getEabaxApplyActivities(OutLog log) {
+    return eabaxJdbc.query(Sqls.selApplyActivities,
+        new Object[] { log.applyActivityId }, RowMappers.applyActivity);
   }
   
+  private Long writeInteApplyActivities(List<ApplyActivity> applyActivities) {
+    for (ApplyActivity act: applyActivities) {
+      inteJdbc.update(Sqls.insApplyActivity,
+          new Object[] {act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
+          act.approveDate, act.approvePerson, act.itemName, act.itemNo, 
+          act.itemUnit, act.itemQty, act.receiverPerson});
+    }
+    return applyActivities.get(applyActivities.size() - 1).id;
+  }
 
 }

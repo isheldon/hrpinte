@@ -1,21 +1,21 @@
-package com.eabax.hospital.integration.task;
+package com.eabax.hospital.integration.task.model;
 
 import java.sql.Timestamp;
 
-class OutLog {
-  Timestamp processTime;
-  Long departmentId;
-  Long disposibleItemId;
-  Long supplierId;
-  Long activityId;
+public class OutLog {
+  public Timestamp processTime;
+  public Long departmentId;
+  public Long disposibleItemId;
+  public Long supplierId;
+  public Long applyActivityId;
 
   public OutLog(Timestamp processTime, Long departmentId,
-      Long disposibleItemId, Long supplierId, Long activityId) {
+      Long disposibleItemId, Long supplierId, Long applyActivityId) {
     this.processTime = processTime;
     this.departmentId = departmentId;
     this.disposibleItemId = disposibleItemId;
     this.supplierId = supplierId;
-    this.activityId = activityId;
+    this.applyActivityId = applyActivityId;
   }
   
   public OutLog() {
@@ -26,7 +26,7 @@ class OutLog {
   public String toString() {
     return "OutLog [processTime=" + processTime + ", departmentId="
         + departmentId + ", disposibleItemId=" + disposibleItemId
-        + ", supplierId=" + supplierId + ", activityId=" + activityId + "]";
+        + ", supplierId=" + supplierId + ", applyActivityId=" + applyActivityId + "]";
   }
 
 }

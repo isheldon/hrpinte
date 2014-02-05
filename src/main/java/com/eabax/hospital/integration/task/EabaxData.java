@@ -9,5 +9,5 @@ public class EabaxData {
   List<Department> departments;
   List<DisposibleItem> disposibleItems;
   List<Supplier> suppliers;
-  //TODO List<ApplyActivity> applyActivities;
+  List<ApplyActivity> applyActivities;
 }

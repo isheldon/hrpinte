@@ -34,4 +34,27 @@ class Sqls {
   public static String insSupplier = "insert into Supplier "
       + "(number, name, contact, contact_phone, address, enterprise_nature, legal_person) "
       + "values (?, ?, ?, ?, ?, ?, ?)";
+
+  public static String selApplyActivities = 
+      "select a.lngdrawapplyid, a.strreceiptno, a.lngreceiptno, a.strdate, "
+      + "d.strdepartmentcode, a.lngoperatorid, o.stroperatorcode, o.stroperatorname, "
+      + "a.strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, "
+      + "ro.stroperatorcode as receiver_code, ro.stroperatorname as receiver_name, "
+      + "i.stritemcode, i.stritemname, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity "
+      + "from drawapply a, department d, operator o, operator ao, operator ro, "
+      + "drawapplydetail ad, item i, itemtype it, itemunit iu "
+      + "where a.lngdepartmentid = d.lngdepartmentid "
+      + "and a.lngoperatorid = o.lngoperatorid "
+      + "and a.lngapproveid = ao.lngoperatorid "
+      + "and a.lngemployeeid = ro.lngoperatorid (+) "
+      + "and ad.lngdrawapplyid = a.lngdrawapplyid "
+      + "and ad.lngitemid = i.lngitemid "
+      + "and ad.lngunitid = iu.lngunitid "
+      + "and i.lngitemtypeid = it.lngitemtypeid "
+      + "and a.lngdrawapplyid > ?";
+  
+  public static String insApplyActivity = "insert into JspActivity " 
+     + "(apply_number, apply_date, apply_dept_no, apply_person, approve_date, approve_person, "
+     + "item_name, item_no, item_unit, item_qty, receiver_person) "
+     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 }
