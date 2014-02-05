@@ -34,6 +34,8 @@ public class OutTaskRepository {
     LOG.debug("Has " + data.departments.size() + " department(s) to be sync.");
     data.disposibleItems = this.getEabaxDisposibleItems(log);
     LOG.debug("Has " + data.disposibleItems.size() + " disposibleItem(s) to be sync.");
+    data.suppliers = this.getEabaxSuppliers(log);
+    LOG.debug("Has " + data.suppliers.size() + " supplier(s) to be sync.");
   }
   
   /**
@@ -61,10 +63,23 @@ public class OutTaskRepository {
       LOG.debug("Disposible items cynced");
     }
     
+    // sync suppliers
+    Long lastSupplierId = data.lastLog.supplierId;
+    if (data.suppliers.size() > 0) {
+      lastSupplierId = this.writeInteSuppliers(data.suppliers);
+      hasNew = true;
+      LOG.debug("Suppliers cynced");
+    }
+    
+    //sync ApplyActivities
+    Long lastActivityId = data.lastLog.activityId;
+    
     if (hasNew) {
       OutLog newLog = new OutLog();
       newLog.departmentId = lastDeptId;
       newLog.disposibleItemId = lastItemId;
+      newLog.supplierId = lastSupplierId;
+      newLog.activityId = lastActivityId;
       this.writeOutLog(newLog);
       LOG.debug("New log created: " + newLog);
     }
@@ -109,11 +124,18 @@ public class OutTaskRepository {
     return items.get(items.size()-1).id;
   }
   
-  private List getEabaxSuppiers(OutLog log) {
-    String sql = "select lngcustomerid, strcustomercode, strcustomername, strcontactname, "
-        + "strofficephonenumber, strbilltoaddress, '' as nature, '' as legal_person "
-        + "from customer where lngcustomerid > ? order by lngcustomerid";
-    return null;
+  private List<Supplier> getEabaxSuppliers(OutLog log) {
+    return eabaxJdbc.query(Sqls.selSuppliers,
+        new Object[] { log.supplierId }, RowMappers.supplier);
+  }
+  
+  private Long writeInteSuppliers(List<Supplier> suppliers) {
+    for (Supplier supplier: suppliers) {
+      inteJdbc.update(Sqls.insSupplier,
+          new Object[] {supplier.number, supplier.name, supplier.contact,
+          supplier.contactPhone, supplier.address, supplier.nature, supplier.legalPerson});
+    }
+    return suppliers.get(suppliers.size() - 1).id;
   }
   
   private List getEabaxApplications(OutLog log) {

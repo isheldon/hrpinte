@@ -1,6 +1,6 @@
 package com.eabax.hospital.integration.task.model;
 
-public class Suppier {
+public class Supplier {
   public Long id;
   public String number;
   public String name;
@@ -43,7 +43,7 @@ public class Suppier {
 
   @Override
   public String toString() {
-    return "Suppier [id=" + id + ", number=" + number + ", name=" + name
+    return "Supplier [id=" + id + ", number=" + number + ", name=" + name
         + ", contact=" + contact + ", contactPhone=" + contactPhone
         + ", address=" + address + ", nature=" + nature + ", legalPerson="
         + legalPerson + "]";

@@ -6,11 +6,16 @@ class OutLog {
   Timestamp processTime;
   Long departmentId;
   Long disposibleItemId;
+  Long supplierId;
+  Long activityId;
 
-  public OutLog(Timestamp processTime, Long departmentId, Long disposibleItemId) {
+  public OutLog(Timestamp processTime, Long departmentId,
+      Long disposibleItemId, Long supplierId, Long activityId) {
     this.processTime = processTime;
     this.departmentId = departmentId;
     this.disposibleItemId = disposibleItemId;
+    this.supplierId = supplierId;
+    this.activityId = activityId;
   }
   
   public OutLog() {
@@ -20,6 +25,8 @@ class OutLog {
   @Override
   public String toString() {
     return "OutLog [processTime=" + processTime + ", departmentId="
-        + departmentId + "]";
+        + departmentId + ", disposibleItemId=" + disposibleItemId
+        + ", supplierId=" + supplierId + ", activityId=" + activityId + "]";
   }
+
 }

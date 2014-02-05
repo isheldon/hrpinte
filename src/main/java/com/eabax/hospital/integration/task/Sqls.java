@@ -26,4 +26,12 @@ class Sqls {
       + "(number, name, unit, specification, model, supplier_name, supplier_no, "
       + "producer_name, registration_no, purchase_price, sales_price) "
       + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+  static String selSuppliers = "select lngcustomerid, strcustomercode, strcustomername, strcontactname, "
+        + "strofficephonenumber, strbilltoaddress, '' as nature, '' as legal_person "
+        + "from customer where lngcustomerid > ? order by lngcustomerid";
+
+  public static String insSupplier = "insert into Supplier "
+      + "(number, name, contact, contact_phone, address, enterprise_nature, legal_person) "
+      + "values (?, ?, ?, ?, ?, ?, ?)";
 }
