@@ -1,7 +1,5 @@
 package com.eabax.hospital.integration.task;
 
-import java.text.SimpleDateFormat;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +13,7 @@ public class ScheduledTasks {
   static final Logger LOG = LoggerFactory.getLogger(ScheduledTasks.class);
 
   @Autowired
-  private TaskRepository taskRepository;
-
-  private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
-      "HH:mm:ss");
+  private OutTaskRepository taskRepository;
 
   @Scheduled(fixedRate = 60000)
   public void reportCurrentTime() {

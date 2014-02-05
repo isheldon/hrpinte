@@ -5,10 +5,12 @@ import java.sql.Timestamp;
 class OutLog {
   Timestamp processTime;
   Long departmentId;
+  Long disposibleItemId;
 
-  public OutLog(Timestamp processTime, Long departmentId) {
+  public OutLog(Timestamp processTime, Long departmentId, Long disposibleItemId) {
     this.processTime = processTime;
     this.departmentId = departmentId;
+    this.disposibleItemId = disposibleItemId;
   }
   
   public OutLog() {

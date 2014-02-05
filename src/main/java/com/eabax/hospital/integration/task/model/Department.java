@@ -1,9 +1,9 @@
-package com.eabax.hospital.integration.task;
+package com.eabax.hospital.integration.task.model;
 
 public class Department {
-  Long id;
-  String number;
-  String name;
+  public Long id;
+  public String number;
+  public String name;
 
   public Department(Long id, String number, String name) {
     this.id = id;
