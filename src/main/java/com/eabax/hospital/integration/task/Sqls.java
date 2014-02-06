@@ -96,4 +96,9 @@ class Sqls {
       + "where strunitname = ? and rownum = 1 order by lngunitid";
   
   public static String selOperatorName = "select lngoperatorid from operator where stroperatorcode = ?";
+  
+  public static String selMaxReceiptNo = "select max(lngreceiptno) "
+      + "from itemactivity where lngreceipttypeid = ? and strreceiptno = ?";
+  
+  public static String selDepartmentId = "select lngdepartmentid from department where strdepartmentcode = ?";
 }

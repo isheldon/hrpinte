@@ -110,17 +110,17 @@ public class InTaskRepository {
   */
   
   private Long getDeptIdByNo(String no) {
-    // TODO: coding
-    return null;
+    return eabaxJdbc.queryForObject(Sqls.selDepartmentId, new Object[] {no}, Long.class);
   }
   
   private Long getMaxReceiptNo(Long receiptTypeId, String prefix) {
-    // TODO: coding
-    return null;
+    Long no = eabaxJdbc.queryForObject(Sqls.selMaxReceiptNo, new Object[] { receiptTypeId, prefix }, Long.class);
+    if (no == null) { return 0L; }
+    else { return no; }
   }
   
   private Long getNextSeqValue(String seq) {
-    return eabaxJdbc.queryForObject("select " + seq + ".nextVal from dual", Long.class);
+    return eabaxJdbc.queryForObject("select " + seq + ".nextval from dual", Long.class);
   }
   
   private void writeInLog(InLog log) {
