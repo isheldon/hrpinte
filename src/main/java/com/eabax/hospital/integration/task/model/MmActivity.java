@@ -19,6 +19,8 @@ public class MmActivity {
   public String billmakerNo;
   public Date billDate;
   
+  public Long seqValue;
+  
   public Long itemId;
   public Long itemUnitId;
   public Long itemPositionId;
@@ -31,6 +33,8 @@ public class MmActivity {
   public Long activityTypeId;
   public Long receiptTypeId;
   public Long templateId;
+
+  public int hrpStatus = 0;
 
   @Override
   public String toString() {

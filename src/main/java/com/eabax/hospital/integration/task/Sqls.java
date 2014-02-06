@@ -74,6 +74,24 @@ class Sqls {
   
   public static String selMmActivities = "select * from MmActivity where update_time > ?";
   
+  public static String insInOutActivity =
+      "insert into itemactivity (lngactivityid, lngactivitytypeid, lngreceipttypeid, lngtemplateid, "
+      + "lngdepartmentid, intyear, bytperiod, strreceiptno, lngreceiptno, "
+      + "strreceiptdate, strduedate, strdate, lngcurrencyid, dblrate, "
+      + "lngoperatorid, lngcheckerid, lngusetypeid, lngorganizationid, bytstatus, bythishrpstatus)"
+      + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  
+  public static String insOutActivityDetail = 
+      "insert into itemactivitydetail (lngactivitydetailid, lngactivityid, lngrowid, lngitemid, "
+      + "lngunitid, lngpositionid, dblquantity, lngcostorder, strproducedate, strvaliddate, dblcurrprice, dblcurramount) "
+      + "values (itemactivitydetail_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  
+  public static String insInActivityDetail = 
+      "insert into itemactivitydetail (lngactivitydetailid, lngactivityid, lngrowid, lngitemid, "
+      + "lngunitid, lngpositionid, dblquantity, lngcostorder, strproducedate, strvaliddate, "
+      + "dblcurrprice, dblcurrpricetax, dblcurramount, dblamount, dblcostamount, dblavgcostamount) "
+      + "values (itemactivitydetail_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  
   public static String selUnitName = "select lngunitid from itemunit "
       + "where strunitname = ? and rownum = 1 order by lngunitid";
   

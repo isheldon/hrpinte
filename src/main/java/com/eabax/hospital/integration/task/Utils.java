@@ -1,6 +1,7 @@
 package com.eabax.hospital.integration.task;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Utils {
@@ -33,5 +34,9 @@ public class Utils {
     Calendar cal = Calendar.getInstance();
     cal.setTimeInMillis(date.getTime());
     return cal.get(Calendar.MONTH) + 1;
+  }
+  
+  public static String dateString(Date date) {
+    return new SimpleDateFormat("yyyy-MM-dd").format(date);
   }
 }
