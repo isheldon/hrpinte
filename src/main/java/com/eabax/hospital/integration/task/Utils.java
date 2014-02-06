@@ -1,5 +1,7 @@
 package com.eabax.hospital.integration.task;
 
+import java.util.Calendar;
+
 public class Utils {
   public static String billNo(String prefix, long no) {
     if (prefix == null) { prefix = ""; }
@@ -18,5 +20,13 @@ public class Utils {
       return "";
     }
     return name + "/" + no;
+  }
+  
+  public static int getCurrentYear() {
+    return Calendar.getInstance().get(Calendar.YEAR);
+  }
+
+  public static int getCurrentMonth() {
+    return Calendar.getInstance().get(Calendar.MONTH) + 1;
   }
 }

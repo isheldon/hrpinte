@@ -4,7 +4,15 @@ class Sqls {
 
   static String selLastOutLog = "select top 1 * from EabaxOutLog order by id desc";
 
-  static String insOutLog = "insert into EabaxOutLog (process_time, department_id) values (?, ?)";
+  static String selLastInLog = "select top 1 * from MmInLog order by id desc";
+
+  static String insOutLog = "insert into EabaxOutLog "
+      + "(process_time, department_id, disposible_item_id, supplier_id, apply_activity_id) "
+      + "values (?, ?, ?, ?, ?)";
+
+  static String insInLog = "insert into MmInLog "
+      + "(process_time, instrm_set_id, out_activity_id, in_activity_id) "
+      + "values (?, ?, ?, ?)";
 
   static String selDept = "select lngdepartmentid, strdepartmentcode, strfullname from department "
       + "where lngdepartmentid > ? order by lngdepartmentid";
@@ -57,4 +65,15 @@ class Sqls {
      + "(apply_number, apply_date, apply_dept_no, apply_person, approve_date, approve_person, "
      + "item_name, item_no, item_unit, item_qty, receiver_person) "
      + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  
+  public static String selInstrmSets = "select * from InstrumentSet where update_time > ?";
+  //TODO to use sequence
+  public static String insInstrmSet = "insert into item (lngitemid, stritemcode, stritemname, "
+      + "lngpurchaseunitid, lngsaleunitid, lngstockunitid, lngcalcunitid, dblsaleprice, dblsaleprice1) "
+      + "values (item_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+  
+  public static String selUnitName = "select lngunitid from itemunit "
+      + "where strunitname = ? and rownum = 1 order by lngunitid";
+  
+  public static String selOperatorName = "select lngoperatorid from operator where stroperatorcode = ?";
 }

@@ -17,6 +17,8 @@ public class MmActivity {
   public BigDecimal feeAmount; // TODO: what does it mean
   public String billmakerNo;
   public Date billDate;
+  
+  public Long itemId;
 
   @Override
   public String toString() {
