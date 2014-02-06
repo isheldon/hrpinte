@@ -5,6 +5,5 @@ import java.sql.Timestamp;
 public class InLog {
   public Timestamp processTime;
   public Long instrmSetId;
-  public Long outActivityId;
-  public Long inActivityId;
+  public Long mmActivityId;
 }

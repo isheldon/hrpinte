@@ -88,7 +88,7 @@ class Sqls {
   
   public static String insInActivityDetail = 
       "insert into itemactivitydetail (lngactivitydetailid, lngactivityid, lngrowid, lngitemid, "
-      + "lngunitid, lngpositionid, dblquantity, lngcostorder, strproducedate, strvaliddate, "
+      + "lngunitid, lngpositionid, dblquantity, strproducedate, strvaliddate, "
       + "dblcurrprice, dblcurrpricetax, dblcurramount, dblamount, dblcostamount, dblavgcostamount) "
       + "values (itemactivitydetail_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
@@ -101,4 +101,6 @@ class Sqls {
       + "from itemactivity where lngreceipttypeid = ? and strreceiptno = ?";
   
   public static String selDepartmentId = "select lngdepartmentid from department where strdepartmentcode = ?";
+  
+  public static String selItem = "select * from item where stritemcode = ?";
 }

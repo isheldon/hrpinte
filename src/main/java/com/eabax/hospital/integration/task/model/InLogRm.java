@@ -12,8 +12,7 @@ public class InLogRm implements RowMapper<InLog> {
     InLog log = new InLog();
     log.processTime = rs.getTimestamp("process_time");
     log.instrmSetId = rs.getLong("instrm_set_id");
-    log.outActivityId = rs.getLong("out_activity_id");
-    log.inActivityId = rs.getLong("in_activity_id");
+    log.mmActivityId = rs.getLong("mm_activity_id");
     return log;
   }
 

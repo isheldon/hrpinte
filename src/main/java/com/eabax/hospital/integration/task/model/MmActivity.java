@@ -34,6 +34,7 @@ public class MmActivity {
   public Long receiptTypeId;
   public Long templateId;
 
+  public int useTypeId;
   public int hrpStatus = 0;
 
   @Override
