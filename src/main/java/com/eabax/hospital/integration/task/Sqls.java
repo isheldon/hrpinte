@@ -67,10 +67,12 @@ class Sqls {
      + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
   public static String selInstrmSets = "select * from InstrumentSet where update_time > ?";
-  //TODO to use sequence
+  
   public static String insInstrmSet = "insert into item (lngitemid, stritemcode, stritemname, "
       + "lngpurchaseunitid, lngsaleunitid, lngstockunitid, lngcalcunitid, dblsaleprice, dblsaleprice1) "
       + "values (item_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+  
+  public static String selMmActivities = "select * from MmActivity where update_time > ?";
   
   public static String selUnitName = "select lngunitid from itemunit "
       + "where strunitname = ? and rownum = 1 order by lngunitid";

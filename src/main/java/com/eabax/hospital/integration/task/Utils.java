@@ -1,5 +1,6 @@
 package com.eabax.hospital.integration.task;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 public class Utils {
@@ -22,11 +23,15 @@ public class Utils {
     return name + "/" + no;
   }
   
-  public static int getCurrentYear() {
-    return Calendar.getInstance().get(Calendar.YEAR);
+  public static int getYear(Date date) {
+    Calendar cal = Calendar.getInstance();
+    cal.setTimeInMillis(date.getTime());
+    return cal.get(Calendar.YEAR);
   }
 
-  public static int getCurrentMonth() {
-    return Calendar.getInstance().get(Calendar.MONTH) + 1;
+  public static int getMonth(Date date) {
+    Calendar cal = Calendar.getInstance();
+    cal.setTimeInMillis(date.getTime());
+    return cal.get(Calendar.MONTH) + 1;
   }
 }

@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 public class MmActivity {
+  public Long id;
   public int dataType;
   public String itemNo;
   public String itemUnit;
-  public String itemPrice;
-  public String itemQty;
-  public String itemAmount;
+  public BigDecimal itemPrice;
+  public int itemQty;
+  public BigDecimal itemAmount;
   public Date produceDate;
   public Date dueDate;
   public String receiveDeptNo;
@@ -19,15 +20,33 @@ public class MmActivity {
   public Date billDate;
   
   public Long itemId;
+  public Long itemUnitId;
+  public Long itemPositionId;
+  public Long receiveDeptId;
+  public Long approvePersonId;
+  public Long billmakerId;
+  
+  public int billYear;
+  public int billMonth;
+  public Long activityTypeId;
+  public Long receiptTypeId;
+  public Long templateId;
 
   @Override
   public String toString() {
-    return "MmActivity [dataType=" + dataType + ", itemNo=" + itemNo
-        + ", itemUnit=" + itemUnit + ", itemPrice=" + itemPrice + ", itemQty="
-        + itemQty + ", itemAmount=" + itemAmount + ", produceDate="
-        + produceDate + ", dueDate=" + dueDate + ", receiveDeptNo="
-        + receiveDeptNo + ", approvePersonNo=" + approvePersonNo
-        + ", feeAmount=" + feeAmount + ", billmakerNo=" + billmakerNo
-        + ", billDate=" + billDate + "]";
+    return "MmActivity [id=" + id + ", dataType=" + dataType + ", itemNo="
+        + itemNo + ", itemUnit=" + itemUnit + ", itemPrice=" + itemPrice
+        + ", itemQty=" + itemQty + ", itemAmount=" + itemAmount
+        + ", produceDate=" + produceDate + ", dueDate=" + dueDate
+        + ", receiveDeptNo=" + receiveDeptNo + ", approvePersonNo="
+        + approvePersonNo + ", feeAmount=" + feeAmount + ", billmakerNo="
+        + billmakerNo + ", billDate=" + billDate + ", itemId=" + itemId
+        + ", itemUnitId=" + itemUnitId + ", itemPositionId=" + itemPositionId
+        + ", receiveDeptId=" + receiveDeptId + ", approvePersonId="
+        + approvePersonId + ", billmakerId=" + billmakerId + ", billYear="
+        + billYear + ", billMonth=" + billMonth + ", activityTypeId="
+        + activityTypeId + ", receiptTypeId=" + receiptTypeId + ", templateId="
+        + templateId + "]";
   }
+ 
 }

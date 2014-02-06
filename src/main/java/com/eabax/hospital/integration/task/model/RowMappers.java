@@ -8,4 +8,5 @@ public class RowMappers {
   public static SupplierRm supplier = new SupplierRm();
   public static ApplyActivityRm applyActivity = new ApplyActivityRm();
   public static InstrmSetRm instrmSet = new InstrmSetRm();
+  public static MmActivityRm mmActivity = new MmActivityRm();
 }
