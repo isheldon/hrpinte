@@ -15,13 +15,13 @@ public class ScheduledTasks {
   @Autowired
   private OutTaskRepository taskRepository;
 
-  @Scheduled(fixedRate = 60000)
+  @Scheduled(fixedRate = 180000)
   public void reportCurrentTime() {
     LOG.debug("Start sync from Eabax to integration DB...");
     LOG.debug("..........................................");
     EabaxData data = new EabaxData();
     taskRepository.constructEabaxData(data);
-    // TODO enable this taskRepository.writeToInteDb(data);
+    taskRepository.writeToInteDb(data);
     LOG.debug("..........................................");
     LOG.debug("End sync from Eabax to integration DB...");
   }

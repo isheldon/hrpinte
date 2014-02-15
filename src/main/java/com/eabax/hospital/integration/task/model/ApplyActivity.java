@@ -11,6 +11,7 @@ public class ApplyActivity {
   public Date approveDate;
   public String approvePerson;
   public String itemName;
+  public Integer itemType;
   public String itemNo;
   public String itemUnit;
   public Integer itemQty;
@@ -26,16 +27,17 @@ public class ApplyActivity {
       this.approveDate = Date.valueOf(aprDate);
     }
   }
-  
+
   @Override
   public String toString() {
     return "ApplyActivity [id=" + id + ", applyNumber=" + applyNumber
         + ", applyDate=" + applyDate + ", applyDeptNo=" + applyDeptNo
         + ", applyPerson=" + applyPerson + ", approveDate=" + approveDate
         + ", approvePerson=" + approvePerson + ", itemName=" + itemName
-        + ", itemNo=" + itemNo + ", itemUnit=" + itemUnit + ", itemQty="
-        + itemQty + ", receiverPerson=" + receiverPerson + ", billType="
-        + billType + ", receiveType=" + receiveType + ", applyType="
-        + applyType + "]";
+        + ", itemType=" + itemType + ", itemNo=" + itemNo + ", itemUnit="
+        + itemUnit + ", itemQty=" + itemQty + ", receiverPerson="
+        + receiverPerson + ", billType=" + billType + ", receiveType="
+        + receiveType + ", applyType=" + applyType + "]";
   }
+  
 }

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eabax.hospital.integration.task.model.*;
@@ -33,12 +34,16 @@ public class OutTaskRepository {
     LOG.debug("Last log: " + log);
     data.departments = this.getEabaxDepartments(log);
     LOG.debug("Has " + data.departments.size() + " department(s) to be sync.");
+    LOG.debug("-----departments-----\n" + data.departments);
     data.disposibleItems = this.getEabaxDisposibleItems(log);
     LOG.debug("Has " + data.disposibleItems.size() + " disposibleItem(s) to be sync.");
+    LOG.debug("-----disposible items-----\n" + data.disposibleItems);
     data.suppliers = this.getEabaxSuppliers(log);
     LOG.debug("Has " + data.suppliers.size() + " supplier(s) to be sync.");
+    LOG.debug("-----suppliers-----\n" + data.suppliers);
     data.applyActivities = this.getEabaxApplyActivities(log);
     LOG.debug("Has " + data.applyActivities.size() + " applyActivities to be sync.");
+    LOG.debug("-----applyActivities-----\n" + data.applyActivities);
   }
   
   /**
@@ -46,7 +51,8 @@ public class OutTaskRepository {
    * @param data Eabax data container
    * @param log Last outLog
    */
-  @Transactional
+  @Transactional(value="inteTxManager",
+      rollbackFor=RuntimeException.class, propagation=Propagation.REQUIRED)
   public void writeToInteDb(EabaxData data) {
     boolean hasNew = false;
 
@@ -98,7 +104,9 @@ public class OutTaskRepository {
   }
   
   private void writeOutLog(OutLog log) {
-    inteJdbc.update(Sqls.insOutLog, new Object[] { log.processTime, log.departmentId });
+    inteJdbc.update(Sqls.insOutLog, 
+        new Object[] { 
+        log.processTime, log.departmentId, log.disposibleItemId, log.supplierId, log.applyActivityId });
   }
 
   private List<Department> getEabaxDepartments(OutLog log) {
@@ -147,18 +155,32 @@ public class OutTaskRepository {
   }
   
   private List<ApplyActivity> getEabaxApplyActivities(OutLog log) {
-    return eabaxJdbc.query(Sqls.selApplyActivities,
+    List<ApplyActivity> acts = eabaxJdbc.query(Sqls.selApplyActivities,
         new Object[] { log.applyActivityId }, RowMappers.applyActivity);
+    for (ApplyActivity act: acts) {
+      String typeCode = this.getItemTypeCodeByItemNo(act.itemNo);
+      if (typeCode.startsWith("1-1-05") || typeCode.startsWith("1-1-06")) {
+        //一次性物品
+        act.itemType = 2;
+      } else {
+        //器械包
+        act.itemType = 1;
+      }
+    }
+    return acts;
   }
   
   private Long writeInteApplyActivities(List<ApplyActivity> applyActivities) {
     for (ApplyActivity act: applyActivities) {
       inteJdbc.update(Sqls.insApplyActivity,
           new Object[] {act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
-          act.approveDate, act.approvePerson, act.itemName, act.itemNo, 
+          act.approveDate, act.approvePerson, act.itemName, act.itemType, act.itemNo, 
           act.itemUnit, act.itemQty, act.receiverPerson});
     }
     return applyActivities.get(applyActivities.size() - 1).id;
   }
 
+  private String getItemTypeCodeByItemNo(String itemNo) {
+    return eabaxJdbc.queryForObject(Sqls.selItemTypeCode, new Object[] {itemNo}, String.class);
+  }
 }

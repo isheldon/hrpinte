@@ -13,7 +13,7 @@ public class DisposibleItemRm implements RowMapper<DisposibleItem> {
     item.number = rs.getString("stritemcode");
     item.name = rs.getString("stritemname");
     item.unit = rs.getString("strpackunit");
-    item.setSpecification(rs.getString("strpackunit"));
+    item.setSpecification(rs.getString("stritemstyle"));
     item.model = rs.getString("itemmodel");
     item.setSupplierName(rs.getString("strcustomername"));
     item.setSupplierNo(rs.getString("strcustomercode"));

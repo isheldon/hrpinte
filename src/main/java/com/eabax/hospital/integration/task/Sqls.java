@@ -7,7 +7,7 @@ class Sqls {
   static String selLastInLog = "select top 1 * from MmInLog order by id desc";
 
   static String insOutLog = "insert into EabaxOutLog "
-      + "(process_time, department_id, disposible_item_id, supplier_id, apply_activity_id) "
+      + "(process_time, department_id, disposible_item_id, supplier_id, activity_id) "
       + "values (?, ?, ?, ?, ?)";
 
   static String insInLog = "insert into MmInLog "
@@ -63,8 +63,8 @@ class Sqls {
   
   public static String insApplyActivity = "insert into JspActivity " 
      + "(apply_number, apply_date, apply_dept_no, apply_person, approve_date, approve_person, "
-     + "item_name, item_no, item_unit, item_qty, receiver_person) "
-     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     + "item_name, item_type, item_no, item_unit, item_qty, receiver_person) "
+     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
   public static String selInstrmSets = "select * from InstrumentSet where update_time > ?";
   
@@ -103,4 +103,8 @@ class Sqls {
   public static String selDepartmentId = "select lngdepartmentid from department where strdepartmentcode = ?";
   
   public static String selItem = "select * from item where stritemcode = ?";
+  
+  public static String selItemTypeCode = 
+      "select it.stritemtypecode from item i, itemtype it "
+      + "where i.lngitemtypeid = it.lngitemtypeid and i.stritemcode = ?";
 }
