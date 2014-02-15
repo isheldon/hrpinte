@@ -21,7 +21,7 @@ public class ScheduledTasks {
     LOG.debug("..........................................");
     EabaxData data = new EabaxData();
     taskRepository.constructEabaxData(data);
-    taskRepository.writeToInteDb(data);
+    // TODO enable this taskRepository.writeToInteDb(data);
     LOG.debug("..........................................");
     LOG.debug("End sync from Eabax to integration DB...");
   }

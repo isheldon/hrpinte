@@ -22,7 +22,7 @@ class Sqls {
 
   static String selDisposibleItems = 
       "select i.lngitemid, i.stritemcode, i.stritemname, i.strpackunit, i.stritemstyle, '' as itemmodel, "
-      + "c.strcustomercode, c.strcustomername, i.strmadefactname, i.strregisterno "
+      + "c.strcustomercode, c.strcustomername, i.strmadefactname, i.strregisterno, i.dblpurchaseprice, i.dblsaleprice "
       + "from item i, itemtype it, customer c "
       + "where i.lngitemtypeid = it.lngitemtypeid "
       + "and i.lngcustomerid = c.lngcustomerid "

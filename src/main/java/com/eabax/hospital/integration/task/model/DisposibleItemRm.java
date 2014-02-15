@@ -10,16 +10,17 @@ public class DisposibleItemRm implements RowMapper<DisposibleItem> {
   public DisposibleItem mapRow(ResultSet rs, int rowNum) throws SQLException {
     DisposibleItem item = new DisposibleItem();
     item.id = rs.getLong("lngitemid");
-    item.number = rs.getString("number");
-    item.name = rs.getString("name");
-    item.model = rs.getString("unit");
-    item.setSpecification(rs.getString("specification"));
-    item.setSupplierName(rs.getString("supplier_name"));
-    item.setSupplierNo(rs.getString("supplier_no"));
-    item.setProducerName(rs.getString("producer_name"));
-    item.setRegistrationNo(rs.getString("registration_no"));
-    item.purchasePrice = rs.getBigDecimal("purchase_price");
-    item.salesPrice = rs.getBigDecimal("sales_price");
+    item.number = rs.getString("stritemcode");
+    item.name = rs.getString("stritemname");
+    item.unit = rs.getString("strpackunit");
+    item.setSpecification(rs.getString("strpackunit"));
+    item.model = rs.getString("itemmodel");
+    item.setSupplierName(rs.getString("strcustomername"));
+    item.setSupplierNo(rs.getString("strcustomercode"));
+    item.setProducerName(rs.getString("strmadefactname"));
+    item.setRegistrationNo(rs.getString("strregisterno"));
+    item.purchasePrice = rs.getBigDecimal("dblpurchaseprice");
+    item.salesPrice = rs.getBigDecimal("dblsaleprice");
     return item;
   }
 }
