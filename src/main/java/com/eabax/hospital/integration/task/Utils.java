@@ -7,12 +7,14 @@ import java.util.Calendar;
 public class Utils {
   public static String billNo(String prefix, long no) {
     if (prefix == null) { prefix = ""; }
+    prefix = prefix.trim();
     int zeros = 0;
     if (no < 10) { zeros = 3;
     } else if (no < 100) { zeros = 2;
     } else if (no < 1000) { zeros = 1; }
-    while (zeros < 0) {
+    while (zeros > 0) {
       prefix = prefix + "0";
+      zeros--;
     }
     return prefix + no;
   }
@@ -38,5 +40,12 @@ public class Utils {
   
   public static String dateString(Date date) {
     return new SimpleDateFormat("yyyy-MM-dd").format(date);
+  }
+  
+  public static void main(String[] args) {
+    System.out.println(billNo("foo", 1L));
+    System.out.println(billNo(" ", 1L));
+    System.out.println(billNo("", 1L));
+    System.out.println(billNo(null, 1L));
   }
 }
