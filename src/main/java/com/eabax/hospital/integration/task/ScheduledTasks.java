@@ -11,12 +11,17 @@ import org.springframework.stereotype.Service;
 @EnableScheduling
 public class ScheduledTasks {
   static final Logger LOG = LoggerFactory.getLogger(ScheduledTasks.class);
+  
+  public static boolean enabled = false;
+  public static int rate = 5;
+  private static long count = 1;
 
   @Autowired
   private OutTaskRepository taskRepository;
 
-  @Scheduled(fixedRate = 180000)
+  @Scheduled(fixedRate = 60000)
   public void reportCurrentTime() {
+    if (enabled && count % rate == 0) {
     LOG.debug("Start sync from Eabax to integration DB...");
     LOG.debug("..........................................");
     EabaxData data = new EabaxData();
@@ -24,5 +29,9 @@ public class ScheduledTasks {
     taskRepository.writeToInteDb(data);
     LOG.debug("..........................................");
     LOG.debug("End sync from Eabax to integration DB...");
+    } else {
+      LOG.debug("NOT ENABLED............................");
+    }
+    count++;
   }
 }
