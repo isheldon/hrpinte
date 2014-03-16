@@ -22,15 +22,13 @@ public class ScheduledTasks {
   @Scheduled(fixedRate = 60000)
   public void reportCurrentTime() {
     if (enabled && count % rate == 0) {
-    LOG.debug("Start sync from Eabax to integration DB...");
-    LOG.debug("..........................................");
-    EabaxData data = new EabaxData();
-    taskRepository.constructEabaxData(data);
-    taskRepository.writeToInteDb(data);
-    LOG.debug("..........................................");
-    LOG.debug("End sync from Eabax to integration DB...");
-    } else {
-      LOG.debug("NOT ENABLED............................");
+      LOG.debug("Start sync from Eabax to integration DB...");
+      LOG.debug("..........................................");
+      EabaxData data = new EabaxData();
+      taskRepository.constructEabaxData(data);
+      taskRepository.writeToInteDb(data);
+      LOG.debug("..........................................");
+      LOG.debug("End sync from Eabax to integration DB...");
     }
     count++;
   }
