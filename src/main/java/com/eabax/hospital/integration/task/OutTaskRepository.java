@@ -173,7 +173,7 @@ public class OutTaskRepository {
   private Long writeInteApplyActivities(List<ApplyActivity> applyActivities) {
     for (ApplyActivity act: applyActivities) {
       inteJdbc.update(Sqls.insApplyActivity,
-          new Object[] {act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
+          new Object[] {act.id, act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
           act.approveDate, act.approvePerson, act.itemName, act.itemType, act.itemNo, 
           act.itemUnit, act.itemQty, act.receiverPerson, 0});
     }
