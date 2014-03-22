@@ -34,16 +34,16 @@ public class OutTaskRepository {
     LOG.debug("Last log: " + log);
     data.departments = this.getEabaxDepartments(log);
     LOG.debug("Has " + data.departments.size() + " department(s) to be sync.");
-    LOG.debug("-----departments-----\n" + data.departments);
+    // LOG.debug("-----departments-----\n" + data.departments);
     data.disposibleItems = this.getEabaxDisposibleItems(log);
     LOG.debug("Has " + data.disposibleItems.size() + " disposibleItem(s) to be sync.");
-    LOG.debug("-----disposible items-----\n" + data.disposibleItems);
+    // LOG.debug("-----disposible items-----\n" + data.disposibleItems);
     data.suppliers = this.getEabaxSuppliers(log);
     LOG.debug("Has " + data.suppliers.size() + " supplier(s) to be sync.");
-    LOG.debug("-----suppliers-----\n" + data.suppliers);
+    // LOG.debug("-----suppliers-----\n" + data.suppliers);
     data.applyActivities = this.getEabaxApplyActivities(log);
     LOG.debug("Has " + data.applyActivities.size() + " applyActivities to be sync.");
-    LOG.debug("-----applyActivities-----\n" + data.applyActivities);
+    // LOG.debug("-----applyActivities-----\n" + data.applyActivities);
   }
   
   /**
