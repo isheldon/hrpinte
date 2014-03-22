@@ -28,6 +28,11 @@ public class ApplyActivityRm implements RowMapper<ApplyActivity> {
     activity.itemQty = rs.getInt("dblapplyquantity");
     activity.receiverPerson = Utils.personNameNo(
         rs.getString("receiver_name"), rs.getString("receiver_code"));
+    int appType = rs.getInt("lngcustomtextid2");
+    if (appType == 100) activity.applyType = 1; //借用
+    if (appType == 101) activity.applyType = 2; //更换
+    if (appType == 102) activity.applyType = 3; //领用
+    if (appType == 103) activity.applyType = 4; //退库
     return activity;
   }
 

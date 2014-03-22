@@ -44,11 +44,11 @@ class Sqls {
       + "values (?, ?, ?, ?, ?, ?, ?)";
 
   public static String selApplyActivities = 
-      "select a.lngdrawapplyid, a.strreceiptno, a.lngreceiptno, a.strdate, "
+      "select ad.lngdrawapplydetailid, a.strreceiptno, a.lngreceiptno, a.strdate, "
       + "d.strdepartmentcode, a.lngoperatorid, o.stroperatorcode, o.stroperatorname, "
       + "a.strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, "
       + "ro.stroperatorcode as receiver_code, ro.stroperatorname as receiver_name, "
-      + "i.stritemcode, i.stritemname, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity "
+      + "i.stritemcode, i.stritemname, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 "
       + "from drawapply a, department d, operator o, operator ao, operator ro, "
       + "drawapplydetail ad, item i, itemtype it, itemunit iu "
       + "where a.lngdepartmentid = d.lngdepartmentid "
@@ -59,12 +59,13 @@ class Sqls {
       + "and ad.lngitemid = i.lngitemid "
       + "and ad.lngunitid = iu.lngunitid "
       + "and i.lngitemtypeid = it.lngitemtypeid "
+      + "and ad.lngcustomtextid1 = 100 "
       + "and a.lngdrawapplyid > ?";
   
   public static String insApplyActivity = "insert into JspActivity " 
      + "(apply_id, apply_number, apply_date, apply_dept_no, apply_person, approve_date, approve_person, "
-     + "item_name, item_type, item_no, item_unit, item_qty, receiver_person, is_apply) "
-     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     + "item_name, item_type, item_no, item_unit, item_qty, receiver_person, apply_type, is_apply) "
+     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
   public static String selInstrmSets = "select * from InstrumentSet where update_time > ?";
   
