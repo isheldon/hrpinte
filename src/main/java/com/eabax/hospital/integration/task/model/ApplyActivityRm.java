@@ -13,7 +13,8 @@ public class ApplyActivityRm implements RowMapper<ApplyActivity> {
   @Override
   public ApplyActivity mapRow(ResultSet rs, int rowNum) throws SQLException {
     ApplyActivity activity = new ApplyActivity();
-    activity.id = rs.getLong("lngdrawapplydetailid");
+    activity.id = rs.getLong("lngdrawapplyid");
+    activity.detailId = rs.getLong("lngdrawapplydetailid");
     activity.applyNumber = Utils.billNo(rs.getString("strreceiptno"), rs.getLong("lngreceiptno"));
     activity.applyDate = Date.valueOf(rs.getString("strdate"));
     activity.applyDeptNo = rs.getString("strdepartmentcode");

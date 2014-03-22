@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class ApplyActivity {
   public Long id;
+  public Long detailId;
   public String applyNumber;
   public Date applyDate;
   public String applyDeptNo;

@@ -44,7 +44,7 @@ class Sqls {
       + "values (?, ?, ?, ?, ?, ?, ?)";
 
   public static String selApplyActivities = 
-      "select ad.lngdrawapplydetailid, a.strreceiptno, a.lngreceiptno, a.strdate, "
+      "select a.lngdrawapplyid, ad.lngdrawapplydetailid, a.strreceiptno, a.lngreceiptno, a.strdate, "
       + "d.strdepartmentcode, a.lngoperatorid, o.stroperatorcode, o.stroperatorname, "
       + "a.strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, "
       + "ro.stroperatorcode as receiver_code, ro.stroperatorname as receiver_name, "
@@ -60,7 +60,8 @@ class Sqls {
       + "and ad.lngunitid = iu.lngunitid "
       + "and i.lngitemtypeid = it.lngitemtypeid "
       + "and ad.lngcustomtextid1 = 100 "
-      + "and a.lngdrawapplyid > ?";
+      + "and a.lngdrawapplyid > ? "
+      + "order by a.lngdrawapplyid";
   
   public static String insApplyActivity = "insert into JspActivity " 
      + "(apply_id, apply_number, apply_date, apply_dept_no, apply_person, approve_date, approve_person, "
