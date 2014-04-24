@@ -29,11 +29,21 @@ public class ApplyActivityRm implements RowMapper<ApplyActivity> {
     activity.itemQty = rs.getInt("dblapplyquantity");
     activity.receiverPerson = Utils.personNameNo(
         rs.getString("receiver_name"), rs.getString("receiver_code"));
-    int appType = rs.getInt("lngcustomtextid2");
-    if (appType == 100) activity.applyType = 1; //借用
-    if (appType == 101) activity.applyType = 2; //更换
-    if (appType == 102) activity.applyType = 3; //领用
-    if (appType == 103) activity.applyType = 4; //退库
+    //int appType = rs.getInt("lngcustomtextid2"); //dev env
+    int appType = rs.getInt("lngcustomtextid1");   //real evn
+    
+    if (appType == 1002) activity.applyType = 1; //借用
+    if (appType == 1003) activity.applyType = 2; //更换
+    if (appType == 1004) activity.applyType = 3; //领用
+    if (appType == 1005) activity.applyType = 4; //退库
+    
+    if (activity.applyType == 1) {
+      activity.billType = "科室借用";
+      activity.receiveType = 1;
+    }
+    if (activity.applyType == 2 || activity.applyType == 3) {
+      activity.billType = "科室领用";
+    }
     return activity;
   }
 
