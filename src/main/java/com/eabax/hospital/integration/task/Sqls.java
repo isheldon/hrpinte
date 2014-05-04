@@ -48,8 +48,7 @@ class Sqls {
       + "d.strdepartmentcode, a.lngoperatorid, o.stroperatorcode, o.stroperatorname, "
       + "a.strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, "
       + "ro.stroperatorcode as receiver_code, ro.stroperatorname as receiver_name, "
-      //+ "i.stritemcode, i.stritemname, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 " //dev env
-      + "i.stritemcode, i.stritemname, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid1 " //real shenqingleixing
+      + "i.stritemcode, i.stritemname, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 " //real env
       + "from drawapply a, department d, operator o, operator ao, operator ro, "
       + "drawapplydetail ad, item i, itemtype it, itemunit iu "
       + "where a.lngdepartmentid = d.lngdepartmentid "
@@ -60,8 +59,7 @@ class Sqls {
       + "and ad.lngitemid = i.lngitemid "
       + "and ad.lngunitid = iu.lngunitid "
       + "and i.lngitemtypeid = it.lngitemtypeid "
-      //+ "and ad.lngcustomtextid1 = 100 "  //dev env
-      + "and ad.lngcustomtextid2 = 1020 "    //real env - gongyingshi
+      + "and ad.lngcustomtextid1 = 1000 "  //real env
       + "and a.lngdrawapplyid > ? "
       + "order by a.lngdrawapplyid";
   
