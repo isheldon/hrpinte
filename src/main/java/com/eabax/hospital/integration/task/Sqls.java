@@ -17,7 +17,7 @@ class Sqls {
   static String selDept = "select lngdepartmentid, strdepartmentcode, strfullname from department "
       + "where lngdepartmentid > ? order by lngdepartmentid";
 
-  static String insDept = "insert into department (number, name) values (?, ?)";
+  static String insDept = "insert into department (number, name, mmDeptNo) values (?, ?, ?)";
 
 
   static String selDisposibleItems = 
@@ -109,4 +109,6 @@ class Sqls {
   public static String selItemTypeCode = 
       "select it.stritemtypecode from item i, itemtype it "
       + "where i.lngitemtypeid = it.lngitemtypeid and i.stritemcode = ?";
+  
+  public static String selMmDeptNos = "select mmDeptNo from Department";
 }

@@ -1,6 +1,7 @@
 package com.eabax.hospital.integration.task;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,7 +111,17 @@ public class OutTaskRepository {
   }
 
   private List<Department> getEabaxDepartments(OutLog log) {
-    return eabaxJdbc.query(Sqls.selDept, new Object[] {log.departmentId}, RowMappers.dept);
+    List<Department> depts = eabaxJdbc.query(Sqls.selDept, new Object[] {log.departmentId}, RowMappers.dept);
+    if (depts == null || depts.size() == 0) { return depts; }
+    
+    List<String> mmDetpNos = inteJdbc.queryForList(Sqls.selMmDeptNos, String.class);
+    if (mmDetpNos == null || mmDetpNos.size() == 0) { return depts; }
+    for (Department dept: depts) {
+      if (mmDetpNos.contains(dept.number)) {
+        dept.mmDeptNo = UUID.randomUUID().toString();
+      }
+    }
+    return depts;
   }
   
   /**
@@ -120,7 +131,7 @@ public class OutTaskRepository {
    */
   private Long writeInteDepartments(List<Department> depts) {
     for (Department dept: depts) {
-      inteJdbc.update(Sqls.insDept, new Object[] { dept.number, dept.name });
+      inteJdbc.update(Sqls.insDept, new Object[] { dept.number, dept.name, dept.mmDeptNo });
     }
     return depts.get(depts.size() - 1).id;
   }
