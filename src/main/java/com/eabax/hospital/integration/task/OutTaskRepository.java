@@ -170,12 +170,16 @@ public class OutTaskRepository {
         new Object[] { log.applyActivityId }, RowMappers.applyActivity);
     for (ApplyActivity act: acts) {
       String typeCode = this.getItemTypeCodeByItemNo(act.itemNo);
-      if (typeCode.startsWith("1-1-05") || typeCode.startsWith("1-1-06")) {
+      if (typeCode.equals("1-1-06") || typeCode.equals("1-1-05-01") || typeCode.equals("1-1-05-06") ||
+          typeCode.equals("1-2-01") || typeCode.equals("1-2-05") || typeCode.equals("1-3-02")) {
         //一次性物品
         act.itemType = 2;
-      } else {
+      } else if (typeCode.equals("1-1-07")) {
         //器械包
         act.itemType = 1;
+      } else {
+        //一次性物品
+        act.itemType = 2;
       }
     }
     return acts;

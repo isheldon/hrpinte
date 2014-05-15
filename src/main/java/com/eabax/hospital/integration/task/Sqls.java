@@ -26,7 +26,7 @@ class Sqls {
       + "from item i, itemtype it, customer c "
       + "where i.lngitemtypeid = it.lngitemtypeid "
       + "and i.lngcustomerid = c.lngcustomerid "
-      + "and (it.stritemtypecode like '1-1-05%' or it.stritemtypecode like '1-1-06%') "
+      + "and it.stritemtypecode in ('1-1-06', '1-1-05-01', '1-1-05-06', '1-2-01', '1-2-05', '1-3-02') "
       + "and i.lngitemid > ? "
       + "order by i.lngitemid";
   
