@@ -155,6 +155,7 @@ CREATE TABLE [dbo].[JspActivity](
 	[receive_type] [int] NULL,
 	[apply_type] [int] NULL,
 	[is_apply] [int] NOT NULL,
+	[IsDelete] [int] NOT NULL,
 	[update_time] [datetime] NOT NULL CONSTRAINT [DF_JspActivity_update_time]  DEFAULT (getdate()),
  CONSTRAINT [PK__JspActivity__1ED998B2] PRIMARY KEY CLUSTERED 
 (

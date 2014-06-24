@@ -190,7 +190,7 @@ public class OutTaskRepository {
       inteJdbc.update(Sqls.insApplyActivity,
           new Object[] {act.id, act.detailId, act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
           act.approveDate, act.approvePerson, act.itemName, act.itemType, act.itemNo, 
-          act.itemUnit, act.itemQty, act.receiverPerson, act.applyType, 0});
+          act.itemUnit, act.itemQty, act.receiverPerson, act.applyType, 0, 0});
     }
     return applyActivities.get(applyActivities.size() - 1).id;
   }
