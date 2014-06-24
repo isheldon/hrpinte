@@ -227,3 +227,26 @@ CREATE TABLE [dbo].[Supplier](
 
 GO
 SET ANSI_PADDING OFF
+
+/****** Object:  Table [dbo].[EabaxRevertLog]    Script Date: 06/24/2014 14:23:50 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[EabaxRevertLog](
+  [id] [bigint] IDENTITY(1,1) NOT NULL,
+  [drawapply_id] [bigint] NOT NULL,
+  [is_handled] [int] NOT NULL,
+  [update_time] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+  [id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[EabaxRevertLog] ADD  DEFAULT (getdate()) FOR [update_time]
+GO
