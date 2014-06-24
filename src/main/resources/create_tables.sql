@@ -137,7 +137,8 @@ SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[JspActivity](
 	[id] [bigint] IDENTITY(1,1) NOT NULL,
-	[apply_id] [bigint] NOT NULL,
+	[drawapply_id] [bigint] NOT NULL,
+	[apply_detail_id] [bigint] NOT NULL,
 	[apply_number] [varchar](50) COLLATE Chinese_PRC_CI_AS NOT NULL,
 	[apply_date] [datetime] NOT NULL,
 	[apply_dept_no] [varchar](50) COLLATE Chinese_PRC_CI_AS NOT NULL,
