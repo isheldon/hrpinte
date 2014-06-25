@@ -43,6 +43,9 @@ public class ApplyActivityRm implements RowMapper<ApplyActivity> {
     if (activity.applyType == 2 || activity.applyType == 3) {
       activity.billType = "科室领用";
     }
+    if (activity.applyType == 4) {
+      activity.billType = "申请退库";
+    }
     return activity;
   }
 
