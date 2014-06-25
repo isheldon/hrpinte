@@ -10,4 +10,5 @@ public class EabaxData {
   List<DisposibleItem> disposibleItems;
   List<Supplier> suppliers;
   List<ApplyActivity> applyActivities;
+  List<ApplyActivity> revertActivities;
 }

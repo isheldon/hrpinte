@@ -1,6 +1,8 @@
 package com.eabax.hospital.integration.task;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -45,6 +47,8 @@ public class OutTaskRepository {
     data.applyActivities = this.getEabaxApplyActivities(log);
     LOG.debug("Has " + data.applyActivities.size() + " applyActivities to be sync.");
     // LOG.debug("-----applyActivities-----\n" + data.applyActivities);
+    data.revertActivities = this.getEabaxRevertApplyActivities();
+    LOG.debug("Has " + data.applyActivities.size() + " applyActivities to be sync.");
   }
   
   /**
@@ -89,12 +93,21 @@ public class OutTaskRepository {
       LOG.debug("Apply activities cynced");
     }
     
+    //处理重新提交的申请单（针对一次性物品未出库申请有误）
+    Long lastRevertActivityId = data.lastLog.revertActivityId;
+    if (data.revertActivities.size() > 0) {
+      lastRevertActivityId = this.handleRevertApplyActivities(data.revertActivities);
+      hasNew = true;
+      LOG.debug("Reverted activities cynced");
+    }
+    
     if (hasNew) {
       OutLog newLog = new OutLog();
       newLog.departmentId = lastDeptId;
       newLog.disposibleItemId = lastItemId;
       newLog.supplierId = lastSupplierId;
       newLog.applyActivityId = lastActivityId;
+      newLog.revertActivityId = lastRevertActivityId;
       this.writeOutLog(newLog);
       LOG.debug("New log created: " + newLog);
     }
@@ -105,9 +118,9 @@ public class OutTaskRepository {
   }
   
   private void writeOutLog(OutLog log) {
-    inteJdbc.update(Sqls.insOutLog, 
-        new Object[] { 
-        log.processTime, log.departmentId, log.disposibleItemId, log.supplierId, log.applyActivityId });
+    inteJdbc.update(Sqls.insOutLog, new Object[] { 
+        log.processTime, log.departmentId, log.disposibleItemId, 
+        log.supplierId, log.applyActivityId, log.revertActivityId });
   }
 
   private List<Department> getEabaxDepartments(OutLog log) {
@@ -166,8 +179,22 @@ public class OutTaskRepository {
   }
   
   private List<ApplyActivity> getEabaxApplyActivities(OutLog log) {
-    List<ApplyActivity> acts = eabaxJdbc.query(Sqls.selApplyActivities,
-        new Object[] { log.applyActivityId }, RowMappers.applyActivity);
+    return this.getEabaxApplyActivities(Sqls.selApplyActivities, new Object[] { log.applyActivityId });
+  }
+  
+  //获取回退过又重新提交的申请单记录
+  private List<ApplyActivity> getEabaxRevertApplyActivities() {
+    String sql = Sqls.selUnhandledRevertApplyActivities.replaceAll("REVERTAPPIDS", unhandledRevertApplyIds());
+    return this.getEabaxApplyActivities(sql, null);
+  }
+  
+  private List<ApplyActivity> getEabaxApplyActivities(String sql, Object[] args) {
+    List<ApplyActivity> acts;
+    if (args == null) {
+      acts = eabaxJdbc.query(sql, RowMappers.applyActivity);
+    } else {
+      acts = eabaxJdbc.query(sql, args, RowMappers.applyActivity);
+    }
     for (ApplyActivity act: acts) {
       String typeCode = this.getItemTypeCodeByItemNo(act.itemNo);
       if (typeCode.equals("1-1-06") || typeCode.equals("1-1-05-01") || typeCode.equals("1-1-05-06") ||
@@ -198,4 +225,46 @@ public class OutTaskRepository {
   private String getItemTypeCodeByItemNo(String itemNo) {
     return eabaxJdbc.queryForObject(Sqls.selItemTypeCode, new Object[] {itemNo}, String.class);
   }
+  
+  // 将未处理的回退单据号组织成(xxx, yyy)格式
+  private String unhandledRevertApplyIds() {
+    List<Long> ids = inteJdbc.queryForList(Sqls.selUnhandledRevertApplyIds, Long.class);
+    if (ids == null || ids.isEmpty()) return null;
+    String result = "(";
+    for (Long id: ids) {
+      result = result + id + ",";
+    }
+    result = result.substring(0, result.length()-1) + ")";
+    return result;
+  }
+  
+  // 处理的回退单据
+  private Long handleRevertApplyActivities(List<ApplyActivity> acts) {
+    //先把原记录置为已删除， 然后分别更新(update)，新记录则新增进去(insert)
+    //置为已删除:
+    Set<Long> deleted = new HashSet<Long>();
+    for (ApplyActivity act: acts) {
+      if (!deleted.contains(act.id)) {
+        inteJdbc.update(Sqls.updRevertApplyAsDeleted, new Object[] {act.id});
+      }
+    }
+    //分别更新(update)，新记录则新增进去(insert)
+    for (ApplyActivity act: acts) {
+      //更新原记录
+      int updRow = inteJdbc.update(Sqls.updRevertedApplyActivity, new Object[] {
+          act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
+          act.approveDate, act.approvePerson, act.itemName, act.itemType, act.itemNo, 
+          act.itemUnit, act.itemQty, act.receiverPerson, act.applyType, act.id, act.detailId
+      });
+      //如果没有记录被更新，说明是新的记录，增加一条
+      if (updRow == 0) {
+        inteJdbc.update(Sqls.insApplyActivity,
+            new Object[] {act.id, act.detailId, act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
+            act.approveDate, act.approvePerson, act.itemName, act.itemType, act.itemNo, 
+            act.itemUnit, act.itemQty, act.receiverPerson, act.applyType, 0, 0});
+      }
+    }
+    return acts.get(acts.size() - 1).id;
+  }
+
 }

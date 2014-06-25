@@ -11,6 +11,7 @@ public class OutLogRm implements RowMapper<OutLog> {
     // TODO add new column
     return new OutLog(
         rs.getTimestamp("process_time"), rs.getLong("department_id"),
-        rs.getLong("disposible_item_id"), rs.getLong("supplier_id"), rs.getLong("activity_id"));
+        rs.getLong("disposible_item_id"), rs.getLong("supplier_id"), 
+        rs.getLong("activity_id"), rs.getLong("revert_activity_id"));
   }
 }

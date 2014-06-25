@@ -97,6 +97,7 @@ CREATE TABLE [dbo].[EabaxOutLog](
 	[disposible_item_id] [bigint] NOT NULL,
 	[supplier_id] [bigint] NOT NULL,
 	[activity_id] [bigint] NOT NULL,
+	[revert_activity_id] [bigint] NOT NULL,
  CONSTRAINT [PK_EabaxOutLog] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC

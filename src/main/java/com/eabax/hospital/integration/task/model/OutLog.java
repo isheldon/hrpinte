@@ -8,14 +8,16 @@ public class OutLog {
   public Long disposibleItemId;
   public Long supplierId;
   public Long applyActivityId;
+  public Long revertActivityId;
 
-  public OutLog(Timestamp processTime, Long departmentId,
-      Long disposibleItemId, Long supplierId, Long applyActivityId) {
+  public OutLog(Timestamp processTime, Long departmentId, Long disposibleItemId, 
+      Long supplierId, Long applyActivityId, Long revertActivityId) {
     this.processTime = processTime;
     this.departmentId = departmentId;
     this.disposibleItemId = disposibleItemId;
     this.supplierId = supplierId;
     this.applyActivityId = applyActivityId;
+    this.revertActivityId = revertActivityId;
   }
   
   public OutLog() {
@@ -26,7 +28,8 @@ public class OutLog {
   public String toString() {
     return "OutLog [processTime=" + processTime + ", departmentId="
         + departmentId + ", disposibleItemId=" + disposibleItemId
-        + ", supplierId=" + supplierId + ", applyActivityId=" + applyActivityId + "]";
+        + ", supplierId=" + supplierId + ", applyActivityId=" + applyActivityId 
+        + ", revertActivityId=" + revertActivityId + "]";
   }
 
 }

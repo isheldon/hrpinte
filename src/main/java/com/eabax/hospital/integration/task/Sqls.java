@@ -7,8 +7,8 @@ class Sqls {
   static String selLastInLog = "select top 1 * from MmInLog order by id desc";
 
   static String insOutLog = "insert into EabaxOutLog "
-      + "(process_time, department_id, disposible_item_id, supplier_id, activity_id) "
-      + "values (?, ?, ?, ?, ?)";
+      + "(process_time, department_id, disposible_item_id, supplier_id, activity_id, revert_activity_id) "
+      + "values (?, ?, ?, ?, ?, ?)";
 
   static String insInLog = "insert into MmInLog "
       + "(process_time, instrm_set_id, out_activity_id, in_activity_id) "
@@ -114,4 +114,33 @@ class Sqls {
       + "where i.lngitemtypeid = it.lngitemtypeid and i.stritemcode = ?";
   
   public static String selMmDeptNos = "select mmDeptNo from Department";
+  
+  public static String selUnhandledRevertApplyIds = "select drawapply_id from EabaxRevertLog where is_handled = 0";
+  public static String updRevertLogAsHandled = "update EabaxRevertLog set is_handled = 1 where drawapply_id = ?";
+  public static String updRevertApplyAsDeleted = "update JspActivity set IsDelete = 1, update_time = GETDATE() where drawapply_id = ?";
+  public static String selUnhandledRevertApplyActivities = 
+      "select a.lngdrawapplyid, ad.lngdrawapplydetailid, a.strreceiptno, a.lngreceiptno, a.strdate, "
+      + "d.strdepartmentcode, a.lngoperatorid, o.stroperatorcode, o.stroperatorname, "
+      + "a.strdate as strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, " // making date as approval date
+      + "ro.stremployeecode as receiver_code, ro.stremployeename as receiver_name, "
+      + "i.stritemcode, i.stritemname, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 " //real env
+      + "from drawapply a, department d, operator o, operator ao, employee ro, "
+      + "drawapplydetail ad, item i, itemtype it, itemunit iu "
+      + "where a.lngdepartmentid = d.lngdepartmentid "
+      + "and a.lngoperatorid = o.lngoperatorid "
+      + "and a.lngoperatorid = ao.lngoperatorid " // use operator as approver
+      + "and a.lngemployeeid = ro.lngemployeeid (+) "
+      + "and ad.lngdrawapplyid = a.lngdrawapplyid "
+      + "and ad.lngitemid = i.lngitemid "
+      + "and ad.lngunitid = iu.lngunitid "
+      + "and i.lngitemtypeid = it.lngitemtypeid "
+      + "and ad.lngcustomtextid1 = 1000 "  //real env
+      + "and a.bytstatus = 2 "  //approved
+      + "and a.lngdrawapplyid in REVERTAPPIDS "
+      + "order by a.lngdrawapplyid";
+  public static String updRevertedApplyActivity = "update JspActivity " 
+      + "apply_number = ?, apply_date = ?, apply_dept_no = ?, apply_person = ?, approve_date = ?, approve_person = ?, "
+      + "item_name = ?, item_type = ?, item_no = ?, item_unit = ?, item_qty = ?, receiver_person = ?, "
+      + "apply_type = ?, is_apply = 0, IsDelete = 0, update_time = GETDATE() "
+      + "where drawapply_id = ? and apply_detail_id = ?";
 }
