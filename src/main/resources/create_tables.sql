@@ -71,19 +71,23 @@ CREATE TABLE [dbo].[DisposableItem](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** 对象:  Table [dbo].[EabaxInLog]    脚本日期: 03/23/2014 10:30:17 ******/
+/****** Object:  Table [dbo].[EabaxInLog]    Script Date: 06/25/2014 16:04:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[EabaxInLog](
-	[id] [bigint] IDENTITY(1,1) NOT NULL,
-	[process_time] [datetime] NOT NULL,
-	[instrm_set_id] [bigint] NOT NULL,
-	[mm_activity_id] [bigint] NOT NULL,
-	[eabax_apply_id] [bigint] NOT NULL
+  [id] [bigint] IDENTITY(1,1) NOT NULL,
+  [process_time] [datetime] NOT NULL,
+  [instrm_set_id] [bigint] NOT NULL,
+  [mm_activity_id] [bigint] NOT NULL,
+  [eabax_revert_apply_id] [bigint] NOT NULL,
+  [eabax_return_apply_id] [bigint] NOT NULL,
+ CONSTRAINT [PK_EabaxInLog] PRIMARY KEY CLUSTERED 
+(
+  [id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
 /****** 对象:  Table [dbo].[EabaxOutLog]    脚本日期: 03/23/2014 10:30:17 ******/
 SET ANSI_NULLS ON
