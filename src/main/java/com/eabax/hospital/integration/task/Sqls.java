@@ -117,7 +117,7 @@ class Sqls {
   
   public static String selUnhandledRevertApplyIds = "select drawapply_id from EabaxRevertLog where is_handled = 0";
   public static String updRevertLogAsHandled = "update EabaxRevertLog set is_handled = 1 where drawapply_id = ?";
-  public static String updRevertApplyAsDeleted = "update JspActivity set IsDelete = 1, update_time = GETDATE() where drawapply_id = ?";
+  public static String updRevertApplyAsDeleted = "update JspActivity set IsDelete = 1, is_apply = 0, update_time = GETDATE() where drawapply_id = ?";
   public static String selUnhandledRevertApplyActivities = 
       "select a.lngdrawapplyid, ad.lngdrawapplydetailid, a.strreceiptno, a.lngreceiptno, a.strdate, "
       + "d.strdepartmentcode, a.lngoperatorid, o.stroperatorcode, o.stroperatorname, "
@@ -138,7 +138,7 @@ class Sqls {
       + "and a.bytstatus = 2 "  //approved
       + "and a.lngdrawapplyid in REVERTAPPIDS "
       + "order by a.lngdrawapplyid";
-  public static String updRevertedApplyActivity = "update JspActivity " 
+  public static String updRevertedApplyActivity = "update JspActivity set " 
       + "apply_number = ?, apply_date = ?, apply_dept_no = ?, apply_person = ?, approve_date = ?, approve_person = ?, "
       + "item_name = ?, item_type = ?, item_no = ?, item_unit = ?, item_qty = ?, receiver_person = ?, "
       + "apply_type = ?, is_apply = 0, IsDelete = 0, update_time = GETDATE() "

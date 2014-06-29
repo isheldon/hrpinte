@@ -1,5 +1,6 @@
 package com.eabax.hospital.integration.task;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,7 +49,7 @@ public class OutTaskRepository {
     LOG.debug("Has " + data.applyActivities.size() + " applyActivities to be sync.");
     // LOG.debug("-----applyActivities-----\n" + data.applyActivities);
     data.revertActivities = this.getEabaxRevertApplyActivities();
-    LOG.debug("Has " + data.applyActivities.size() + " applyActivities to be sync.");
+    LOG.debug("Has " + data.applyActivities.size() + " revert applyActivities to be sync.");
   }
   
   /**
@@ -184,7 +185,9 @@ public class OutTaskRepository {
   
   //获取回退过又重新提交的申请单记录
   private List<ApplyActivity> getEabaxRevertApplyActivities() {
-    String sql = Sqls.selUnhandledRevertApplyActivities.replaceAll("REVERTAPPIDS", unhandledRevertApplyIds());
+    String appIds = unhandledRevertApplyIds();
+    if (appIds == null) { return new ArrayList<ApplyActivity>(); }
+    String sql = Sqls.selUnhandledRevertApplyActivities.replaceAll("REVERTAPPIDS", appIds);
     return this.getEabaxApplyActivities(sql, null);
   }
   
@@ -246,6 +249,7 @@ public class OutTaskRepository {
     for (ApplyActivity act: acts) {
       if (!deleted.contains(act.id)) {
         inteJdbc.update(Sqls.updRevertApplyAsDeleted, new Object[] {act.id});
+        deleted.add(act.id);
       }
     }
     //分别更新(update)，新记录则新增进去(insert)
