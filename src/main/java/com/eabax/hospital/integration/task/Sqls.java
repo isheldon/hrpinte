@@ -27,6 +27,7 @@ class Sqls {
       + "where i.lngitemtypeid = it.lngitemtypeid "
       + "and i.lngcustomerid = c.lngcustomerid "
       + "and it.stritemtypecode in ('1-1-06', '1-1-05-01', '1-1-05-06', '1-2-01', '1-2-05', '1-3-02') "
+      + "and i.strmadefactname = 'gys' "
       + "and i.lngitemid > ? "
       + "order by i.lngitemid";
   
@@ -69,7 +70,7 @@ class Sqls {
   public static String insApplyActivity = "insert into JspActivity " 
      + "(drawapply_id, apply_detail_id, apply_number, apply_date, apply_dept_no, apply_person, approve_date, approve_person, "
      + "item_name, item_type, item_no, item_unit, item_qty, receiver_person, apply_type, is_apply, IsDelete) "
-     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
   public static String selInstrmSets = "select * from InstrumentSet where update_time > ?";
   
