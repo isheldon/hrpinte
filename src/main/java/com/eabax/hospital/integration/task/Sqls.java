@@ -62,7 +62,8 @@ class Sqls {
       + "and ad.lngitemid = i.lngitemid "
       + "and ad.lngunitid = iu.lngunitid "
       + "and i.lngitemtypeid = it.lngitemtypeid "
-      + "and ad.lngcustomtextid1 = 1000 "  //real env
+      //+ "and ad.lngcustomtextid1 = 1000 "  //不再以供应科室判断
+      + "and ad.lngcustomtextid2  <> 0 " //申请类型不为空即认为需要同步
       + "and a.bytstatus = 2 "  //approved
       + "and a.lngdrawapplyid > ? "
       + "order by a.lngdrawapplyid";
