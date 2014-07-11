@@ -158,7 +158,7 @@ public class OutTaskRepository {
   private Long writeInteDisposibleItems(List<DisposibleItem> items) {
     for (DisposibleItem item:items) {
       inteJdbc.update(Sqls.insDisposibleItem, 
-          new Object[] {item.number, item.name, item.unit, item.specification, item.model,
+          new Object[] {item.number, item.name, item.alias, item.unit, item.specification, item.model,
           item.supplierName, item.supplierNo, item.producerName, item.registrationNo,
           item.purchasePrice, item.salesPrice});
     }

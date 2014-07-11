@@ -21,7 +21,7 @@ class Sqls {
 
 
   static String selDisposibleItems = 
-      "select i.lngitemid, i.stritemcode, i.stritemname, i.strpackunit, i.stritemstyle, '' as itemmodel, "
+      "select i.lngitemid, i.stritemcode, i.stritemname, i.stritemalias, i.strpackunit, i.stritemstyle, '' as itemmodel, "
       + "c.strcustomercode, c.strcustomername, i.strmadefactname, i.strregisterno, i.dblpurchaseprice, i.dblsaleprice "
       + "from item i, itemtype it, customer c "
       + "where i.lngitemtypeid = it.lngitemtypeid "
@@ -32,7 +32,7 @@ class Sqls {
       + "order by i.lngitemid";
   
   static String insDisposibleItem = "insert into DisposableItem "
-      + "(number, name, unit, specification, model, supplier_name, supplier_no, "
+      + "(number, name, alias, unit, specification, model, supplier_name, supplier_no, "
       + "producer_name, registration_no, purchase_price, sales_price) "
       + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 

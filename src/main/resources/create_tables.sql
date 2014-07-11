@@ -52,6 +52,7 @@ CREATE TABLE [dbo].[DisposableItem](
 	[id] [bigint] IDENTITY(1,1) NOT NULL,
 	[number] [varchar](150) COLLATE Chinese_PRC_CI_AS NOT NULL,
 	[name] [varchar](150) COLLATE Chinese_PRC_CI_AS NOT NULL,
+	[alias] [varchar](50) COLLATE Chinese_PRC_CI_AS,
 	[unit] [varchar](150) COLLATE Chinese_PRC_CI_AS NOT NULL,
 	[specification] [varchar](150) COLLATE Chinese_PRC_CI_AS NULL,
 	[model] [varchar](150) COLLATE Chinese_PRC_CI_AS NULL,

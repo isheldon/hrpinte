@@ -6,6 +6,7 @@ public class DisposibleItem {
   public Long id;
   public String number;
   public String name;
+  public String alias;
   public String unit;
   public String specification;
   public String model;
@@ -53,8 +54,8 @@ public class DisposibleItem {
 
   @Override
   public String toString() {
-    return "DisposibleItem [id=" + id + ", number=" + number + ", name=" + name + ", unit="
-        + unit + ", specification=" + specification + ", model=" + model
+    return "DisposibleItem [id=" + id + ", number=" + number + ", name=" + name + ", alias=" + alias
+        + ", unit=" + unit + ", specification=" + specification + ", model=" + model
         + ", supplierName=" + supplierName + ", supplierNo=" + supplierNo
         + ", producerName=" + producerName + ", registrationNo="
         + registrationNo + ", purchasePrice=" + purchasePrice + ", salesPrice="
