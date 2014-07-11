@@ -34,7 +34,7 @@ class Sqls {
   static String insDisposibleItem = "insert into DisposableItem "
       + "(number, name, alias, unit, specification, model, supplier_name, supplier_no, "
       + "producer_name, registration_no, purchase_price, sales_price) "
-      + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   static String selSuppliers = "select lngcustomerid, strcustomercode, strcustomername, strcontactname, "
         + "strofficephonenumber, strbilltoaddress, '' as nature, '' as legal_person "
