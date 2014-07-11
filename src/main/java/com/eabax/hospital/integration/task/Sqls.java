@@ -50,7 +50,7 @@ class Sqls {
       //+ "a.strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, "
       + "a.strdate as strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, " // making date as approval date
       + "ro.stremployeecode as receiver_code, ro.stremployeename as receiver_name, "
-      + "i.stritemcode, i.stritemname, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 " //real env
+      + "i.stritemcode, i.stritemname, i.stritemalias, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 " //real env
       + "from drawapply a, department d, operator o, operator ao, employee ro, "
       + "drawapplydetail ad, item i, itemtype it, itemunit iu "
       + "where a.lngdepartmentid = d.lngdepartmentid "
@@ -70,8 +70,8 @@ class Sqls {
   
   public static String insApplyActivity = "insert into JspActivity " 
      + "(drawapply_id, apply_detail_id, apply_number, apply_date, apply_dept_no, apply_person, approve_date, approve_person, "
-     + "item_name, item_type, item_no, item_unit, item_qty, receiver_person, apply_type, is_apply, IsDelete) "
-     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     + "item_name, item_alias, item_type, item_no, item_unit, item_qty, receiver_person, apply_type, is_apply, IsDelete) "
+     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
   public static String selInstrmSets = "select * from InstrumentSet where update_time > ?";
   
@@ -125,7 +125,7 @@ class Sqls {
       + "d.strdepartmentcode, a.lngoperatorid, o.stroperatorcode, o.stroperatorname, "
       + "a.strdate as strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, " // making date as approval date
       + "ro.stremployeecode as receiver_code, ro.stremployeename as receiver_name, "
-      + "i.stritemcode, i.stritemname, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 " //real env
+      + "i.stritemcode, i.stritemname, i.stritemalias, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 " //real env
       + "from drawapply a, department d, operator o, operator ao, employee ro, "
       + "drawapplydetail ad, item i, itemtype it, itemunit iu "
       + "where a.lngdepartmentid = d.lngdepartmentid "
@@ -142,7 +142,7 @@ class Sqls {
       + "order by a.lngdrawapplyid";
   public static String updRevertedApplyActivity = "update JspActivity set " 
       + "apply_number = ?, apply_date = ?, apply_dept_no = ?, apply_person = ?, approve_date = ?, approve_person = ?, "
-      + "item_name = ?, item_type = ?, item_no = ?, item_unit = ?, item_qty = ?, receiver_person = ?, "
+      + "item_name = ?, item_alias = ?, item_type = ?, item_no = ?, item_unit = ?, item_qty = ?, receiver_person = ?, "
       + "apply_type = ?, is_apply = 0, IsDelete = 0, update_time = GETDATE() "
       + "where drawapply_id = ? and apply_detail_id = ?";
 }

@@ -152,6 +152,7 @@ CREATE TABLE [dbo].[JspActivity](
 	[approve_date] [datetime] NULL,
 	[approve_person] [varchar](50) COLLATE Chinese_PRC_CI_AS NULL,
 	[item_name] [varchar](50) COLLATE Chinese_PRC_CI_AS NOT NULL,
+	[item_alias] [varchar](50) COLLATE Chinese_PRC_CI_AS,
 	[item_type] [int] NOT NULL,
 	[item_no] [varchar](50) COLLATE Chinese_PRC_CI_AS NOT NULL,
 	[item_unit] [varchar](50) COLLATE Chinese_PRC_CI_AS NOT NULL,

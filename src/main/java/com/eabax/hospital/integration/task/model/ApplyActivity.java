@@ -12,6 +12,7 @@ public class ApplyActivity {
   public Date approveDate;
   public String approvePerson;
   public String itemName;
+  public String itemAlias;
   public Integer itemType;
   public String itemNo;
   public String itemUnit;
@@ -34,7 +35,7 @@ public class ApplyActivity {
     return "ApplyActivity [id=" + id + ", applyNumber=" + applyNumber
         + ", applyDate=" + applyDate + ", applyDeptNo=" + applyDeptNo
         + ", applyPerson=" + applyPerson + ", approveDate=" + approveDate
-        + ", approvePerson=" + approvePerson + ", itemName=" + itemName
+        + ", approvePerson=" + approvePerson + ", itemName=" + itemName + ", itemAlias=" + itemAlias
         + ", itemType=" + itemType + ", itemNo=" + itemNo + ", itemUnit="
         + itemUnit + ", itemQty=" + itemQty + ", receiverPerson="
         + receiverPerson + ", billType=" + billType + ", receiveType="

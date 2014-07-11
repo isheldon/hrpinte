@@ -24,6 +24,7 @@ public class ApplyActivityRm implements RowMapper<ApplyActivity> {
     activity.approvePerson = Utils.personNameNo(
         rs.getString("approver_name"), rs.getString("approver_code"));
     activity.itemName = rs.getString("stritemname");
+    activity.itemAlias = rs.getString("stritemalias");
     activity.itemNo = rs.getString("stritemcode");
     activity.itemUnit = rs.getString("strunitname");
     activity.itemQty = rs.getInt("dblapplyquantity");

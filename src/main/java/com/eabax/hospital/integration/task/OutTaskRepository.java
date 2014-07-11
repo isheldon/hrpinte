@@ -219,7 +219,7 @@ public class OutTaskRepository {
     for (ApplyActivity act: applyActivities) {
       inteJdbc.update(Sqls.insApplyActivity,
           new Object[] {act.id, act.detailId, act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
-          act.approveDate, act.approvePerson, act.itemName, act.itemType, act.itemNo, 
+          act.approveDate, act.approvePerson, act.itemName, act.itemAlias, act.itemType, act.itemNo, 
           act.itemUnit, act.itemQty, act.receiverPerson, act.applyType, 0, 0});
     }
     return applyActivities.get(applyActivities.size() - 1).id;
@@ -257,14 +257,14 @@ public class OutTaskRepository {
       //更新原记录
       int updRow = inteJdbc.update(Sqls.updRevertedApplyActivity, new Object[] {
           act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
-          act.approveDate, act.approvePerson, act.itemName, act.itemType, act.itemNo, 
+          act.approveDate, act.approvePerson, act.itemName, act.itemAlias, act.itemType, act.itemNo, 
           act.itemUnit, act.itemQty, act.receiverPerson, act.applyType, act.id, act.detailId
       });
       //如果没有记录被更新，说明是新的记录，增加一条
       if (updRow == 0) {
         inteJdbc.update(Sqls.insApplyActivity,
             new Object[] {act.id, act.detailId, act.applyNumber, act.applyDate, act.applyDeptNo, act.applyPerson,
-            act.approveDate, act.approvePerson, act.itemName, act.itemType, act.itemNo, 
+            act.approveDate, act.approvePerson, act.itemName, act.itemAlias, act.itemType, act.itemNo, 
             act.itemUnit, act.itemQty, act.receiverPerson, act.applyType, 0, 0});
       }
     }
