@@ -50,7 +50,7 @@ class Sqls {
       //+ "a.strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, "
       + "a.strdate as strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, " // making date as approval date
       + "ro.stremployeecode as receiver_code, ro.stremployeename as receiver_name, "
-      + "i.stritemcode, i.stritemname, i.stritemalias, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 " //real env
+      + "i.stritemcode, i.stritemname, i.stritemalias, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, a.lngclassid2 as apptype  "
       + "from drawapply a, department d, operator o, operator ao, employee ro, "
       + "drawapplydetail ad, item i, itemtype it, itemunit iu "
       + "where a.lngdepartmentid = d.lngdepartmentid "
@@ -63,7 +63,8 @@ class Sqls {
       + "and ad.lngunitid = iu.lngunitid "
       + "and i.lngitemtypeid = it.lngitemtypeid "
       //+ "and ad.lngcustomtextid1 = 1000 "  //不再以供应科室判断
-      + "and ad.lngcustomtextid2  <> 0 " //申请类型不为空即认为需要同步
+      //+ "and ad.lngcustomtextid2  <> 0 " //不再以此判断：申请类型不为空即认为需要同步
+      + "and a.lngclassid2 in (1000, 1001, 1002, 1003) "  //按单据头的申请类型判断同步
       + "and a.bytstatus = 2 "  //approved
       + "and a.lngdrawapplyid > ? "
       + "order by a.lngdrawapplyid";
@@ -125,7 +126,7 @@ class Sqls {
       + "d.strdepartmentcode, a.lngoperatorid, o.stroperatorcode, o.stroperatorname, "
       + "a.strdate as strapprovedate, ao.stroperatorcode as approver_code, ao.stroperatorname as approver_name, " // making date as approval date
       + "ro.stremployeecode as receiver_code, ro.stremployeename as receiver_name, "
-      + "i.stritemcode, i.stritemname, i.stritemalias, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, ad.lngcustomtextid2 " //real env
+      + "i.stritemcode, i.stritemname, i.stritemalias, it.stritemtypecode, iu.strunitname, ad.dblapplyquantity, a.lngclassid2 as apptype "
       + "from drawapply a, department d, operator o, operator ao, employee ro, "
       + "drawapplydetail ad, item i, itemtype it, itemunit iu "
       + "where a.lngdepartmentid = d.lngdepartmentid "
@@ -136,8 +137,8 @@ class Sqls {
       + "and ad.lngitemid = i.lngitemid "
       + "and ad.lngunitid = iu.lngunitid "
       + "and i.lngitemtypeid = it.lngitemtypeid "
-      + "and ad.lngcustomtextid1 = 1000 "  //real env
       + "and a.bytstatus = 2 "  //approved
+      + "and a.lngclassid2 in (1000, 1001, 1002, 1003) "  //单据头的申请类型
       + "and a.lngdrawapplyid in REVERTAPPIDS "
       + "order by a.lngdrawapplyid";
   public static String updRevertedApplyActivity = "update JspActivity set " 
