@@ -14,7 +14,7 @@ class Sqls {
       + "(process_time, instrm_set_id, out_activity_id, in_activity_id) "
       + "values (?, ?, ?, ?)";
 
-  static String selDept = "select lngdepartmentid, strdepartmentcode, strfullname from department "
+  static String selDept = "select lngdepartmentid, strdepartmentcode, strdepartmentname from department "
       + "where lngdepartmentid > ? order by lngdepartmentid";
 
   static String insDept = "insert into department (number, name, mmDeptNo) values (?, ?, ?)";

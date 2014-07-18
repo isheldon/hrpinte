@@ -10,6 +10,6 @@ public class DepartmentRm implements RowMapper<Department> {
   public Department mapRow(ResultSet rs, int num) throws SQLException {
     return new Department(
         rs.getLong("lngdepartmentid"), rs.getString("strdepartmentcode"),
-        rs.getString("strfullname"));
+        rs.getString("strdepartmentname"));
   }
 }
