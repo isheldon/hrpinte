@@ -71,8 +71,8 @@ class Sqls {
   
   public static String insApplyActivity = "insert into JspActivity " 
      + "(drawapply_id, apply_detail_id, apply_number, apply_date, apply_dept_no, apply_person, approve_date, approve_person, "
-     + "item_name, item_alias, item_type, item_no, item_unit, item_qty, receiver_person, apply_type, is_apply, IsDelete) "
-     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+     + "item_name, item_alias, item_type, item_no, item_unit, item_qty, receiver_person, apply_type, is_apply, IsDelete, receive_type) "
+     + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
   
   public static String selInstrmSets = "select * from InstrumentSet where update_time > ?";
   
